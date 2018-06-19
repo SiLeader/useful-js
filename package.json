@@ -1,0 +1,24 @@
+{
+  "name": "useful-js",
+  "version": "1.0.0",
+  "description": "Useful library for browser JavaScript",
+  "main": "useful.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SiLeader/useful-js.git"
+  },
+  "keywords": [
+    "browser",
+    "javascript",
+    "useful"
+  ],
+  "author": "SiLeader",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/SiLeader/useful-js/issues"
+  },
+  "homepage": "https://github.com/SiLeader/useful-js#readme"
+}
