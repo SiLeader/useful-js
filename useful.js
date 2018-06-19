@@ -17,41 +17,42 @@
 
 class UsefulTimerBase {
     constructor() {
-        this.__timer = null;
+        this.timer = null;
     }
 
     run() {}
 
-    startTimer(interval, force_start=true) {
-        if(this.__timer) {
-            if(!force_start) return;
+    startTimer(interval, forcestart=true) {
+        if(this.timer) {
+            if(!forcestart) return;
             this.stopTimer();
         }
-        this.__timer = setInterval(this.run, interval);
+        this.timer = setInterval(()=>{this.run();}, interval);
     }
 
     stopTimer() {
-        if(!this.__timer)return;
-        clearInterval(this.__timer);
-        this.__timer = null;
+        if(!this.timer)return;
+        clearInterval(this.timer);
+        this.timer = null;
     }
 }
 
 class UsefulTimer extends UsefulTimerBase {
-    constructor(dom_class, func, arg_f=null) {
+    constructor(clazz, func, argf=null) {
         super();
 
-        this.__class = dom_class;
-        this.__do_func = func;
-        this.__arg_func = arg_f;
+        this.dom = clazz;
+        this.dofunc = func;
+        this.argfunc = argf;
     }
 
     run() {
-        const dom = document.getElementsByClassName(this.__class);
+        const dom = document.getElementsByClassName(this.dom);
         for(const d of dom) {
             let args = [];
-            if(this.__arg_func) args = this.__arg_func(d);
-            this.__do_func(d, ...args);
+            if(this.argfunc) args = this.argfunc(d);
+            if(typeof args !== typeof []) args = [args];
+            this.dofunc(d, ...args);
         }
     }
 }
@@ -60,30 +61,30 @@ class UsefulFetcher extends UsefulTimerBase {
     constructor(func, getQuery, fetch, parser=null) {
         super();
 
-        this.__func = func;
-        this.__query = getQuery;
-        this.__fetch = fetch;
-        this.__parser = parser;
+        this.func = func;
+        this.query = getQuery;
+        this.fetch = fetch;
+        this.parser = parser;
         if(!parser) {
-            this.__parser = (json)=>{return json;};
+            this.parser = (json)=>{return json;};
         }
     }
 
-    _runImpl(data) {
-        data = this.__parser(data);
+    runImpl(data) {
+        data = this.parser(data);
         if(!data)return;
 
         for(const datum of data) {
-            const query = this.__query(datum);
-            const dom_list = document.querySelector(query);
-            for(const dom of dom_list) {
-                this.__func(dom, datum);
+            const query = this.query(datum);
+            const domlist = document.querySelector(query);
+            for(const dom of domlist) {
+                this.func(dom, datum);
             }
         }
     }
 
     run() {
-        this.__fetch(this._runImpl);
+        this.fetch(this.runImpl);
     }
 
 }

@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>Test</title>
+    </head>
+    <body>
+        <script src="../useful.js" type="application/javascript"></script>
+        <script type="application/javascript">
+            function init() {
+                const timer = new UsefulTimer(
+                    "x-link",
+                    (dom, a)=>{
+                        dom.innerHTML = a;
+                    },
+                    (dom)=>{
+                        const text = "" + dom.innerHTML;
+                        return text + " " + text;
+                    }
+                );
+                timer.startTimer(1000);
+            }
+            window.onload = init;
+        </script>
+
+        <div>
+            <a class="x-link">a</a>
+            <a class="x-link">b</a>
+            <a class="x-link">c</a>
+            <a class="x-link">d</a>
+            <a class="x-link">e</a>
+        </div>
+    </body>
+</html>
+
