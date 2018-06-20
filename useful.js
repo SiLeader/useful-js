@@ -84,7 +84,7 @@ class UsefulFetcher extends UsefulTimerBase {
     }
 
     run() {
-        this.fetch(this.runImpl);
+        this.fetch((data)=>{this.runImpl(data);});
     }
 
 }
