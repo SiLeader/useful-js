@@ -86,7 +86,7 @@ function getPostFetcher(url, body, header={}) {
     };
 }
 
-function getPostFetcher(url, body, header={}) {
+function getPutFetcher(url, body, header={}) {
     return (callback)=>{
         PUT(
             url,
@@ -100,7 +100,7 @@ function getPostFetcher(url, body, header={}) {
     };
 }
 
-function getGetFetcher(url, header={}) {
+function getDeleteFetcher(url, header={}) {
     return (callback)=>{
         DELETE(
             url,
